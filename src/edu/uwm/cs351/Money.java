@@ -26,7 +26,10 @@ public class Money implements Comparable<Money> {
 	 * @param amt number of dollars
 	 */
 	public Money(double amt) {
-		cents = 0; // TODO (not simple)
+		// TODO (not simple)
+		if (amt*100 > (double)Long.MAX_VALUE) throw new ArithmeticException();
+		if (amt*100 < (double)Long.MIN_VALUE) throw new ArithmeticException();
+		cents = Math.round(amt*100);
 	}
 	
 	/**
@@ -42,7 +45,8 @@ public class Money implements Comparable<Money> {
 	 * @return whether positive
 	 */
 	public boolean isPositive() {
-		return false; // TODO
+		if(cents > 0) return true;
+		else return false;
 	}
 	
 	/**
@@ -50,7 +54,8 @@ public class Money implements Comparable<Money> {
 	 * @return whether negative
 	 */
 	public boolean isNegative() {
-		return false;
+		if(cents < 0) return true;
+		else return false;
 	}
 	
 	/**
@@ -108,7 +113,10 @@ public class Money implements Comparable<Money> {
 	
 	@Override // implementation
 	public boolean equals(Object obj) {
-		return false; // TODO
+		
+		//if (this.cents == (long)obj) return true; // bruh wtf am i doing??????
+		if (this == obj) return true;
+		else return false; // TODO
 	}
 	
 	@Override // implementation
