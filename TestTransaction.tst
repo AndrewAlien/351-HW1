@@ -1,0 +1,6 @@
+1195894263="$50.00"
+1445418934="WITHDRAWAL from Pat Lee 2345: $50.00 credit card payment"
+1687899401="$45.00"
+914703724="OverdraftException"
+60547824="($5.00)"
+192504150="$0.00"
