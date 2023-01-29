@@ -29,7 +29,7 @@ public class Money implements Comparable<Money> {
 		// TODO (not simple)
 		if (amt*100 > (double)Long.MAX_VALUE) throw new ArithmeticException();
 		if (amt*100 < (double)Long.MIN_VALUE) throw new ArithmeticException();
-		cents = Math.round(amt*100);
+		this.cents = Math.round(amt*100);
 	}
 	
 	/**
@@ -73,7 +73,14 @@ public class Money implements Comparable<Money> {
 	 * @return sum amount, never null
 	 */
 	public Money add(Money other) {
-		return null; // TODO (Do not use doubles!).
+		//double result = this.cents + other.cents;
+		//return new Money(result);
+		
+		//long result = this.cents + other.cents;
+		long result = Math.addExact(this.cents, other.cents); //plzzzzzz be right
+		Money results = new Money(result); // TODO (Do not use doubles!).
+		System.out.print(results.cents+"\n");
+		return results;
 		
 	}
 	
@@ -113,10 +120,8 @@ public class Money implements Comparable<Money> {
 	
 	@Override // implementation
 	public boolean equals(Object obj) {
-		
-		//if (this.cents == (long)obj) return true; // bruh wtf am i doing??????
-		if (this == obj) return true;
-		else return false; // TODO
+		return (this.hashCode() == obj.hashCode());
+		// TODO
 	}
 	
 	@Override // implementation
