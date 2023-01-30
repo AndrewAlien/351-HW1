@@ -63,7 +63,8 @@ public class Money implements Comparable<Money> {
 	 * @return inverse amount of money.
 	 */
 	public Money negate() {
-		return null; // TODO
+		return new Money(-this.cents);
+		//return null; // TODO
 	}
 	
 	/**
@@ -79,7 +80,7 @@ public class Money implements Comparable<Money> {
 		//long result = this.cents + other.cents;
 		long result = Math.addExact(this.cents, other.cents); //plzzzzzz be right
 		Money results = new Money(result); // TODO (Do not use doubles!).
-		System.out.print(results.cents+"\n");
+		System.out.print(results.cents+"\n"); //test 48 keeps changing to 1 to large for money(long)?
 		return results;
 		
 	}
@@ -92,7 +93,9 @@ public class Money implements Comparable<Money> {
 	 * @return difference amount, never null
 	 */
 	public Money sub(Money other) {
-		return null; // TODO, as with add, or use add and negate
+		
+		return this.add(new Money(other.cents).negate());
+		//return null; // TODO, as with add, or use add and negate
 	}
 	
 	/**

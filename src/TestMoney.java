@@ -165,7 +165,7 @@ public class TestMoney extends LockedTestCase {
 	}
 
 	public void test37() {
-		assertFalse(new Money(3.14).equals(null));
+		assertFalse(new Money(3.14).equals(null)); // fails (null issue?)
 		assertFalse(new Money(3.14).equals(Money.ZERO));
 	}
 
@@ -228,7 +228,7 @@ public class TestMoney extends LockedTestCase {
 	
 	public void test48() {
 		Money bad = new Money(-MAX_MONEY);
-		assertEquals(bad, bad.add(Money.ZERO));
+		assertEquals(bad, bad.add(Money.ZERO)); //fails (-max money issue)
 		Money almostAsBad = bad.add(Money.CENT);
 		assertFalse(bad.equals(almostAsBad));
 		assertEquals(bad, almostAsBad.add(new Money(-0.01)));
@@ -256,7 +256,7 @@ public class TestMoney extends LockedTestCase {
 	}
 	
 	public void test53() {
-		assertEquals(new Money(-MAX_MONEY), new Money(MAX_MONEY).negate());
+		assertEquals(new Money(-MAX_MONEY), new Money(MAX_MONEY).negate()); //fails (-max money issue)
 		assertEquals(new Money(MAX_MONEY), new Money(-MAX_MONEY).negate());
 	}
 	
@@ -299,7 +299,7 @@ public class TestMoney extends LockedTestCase {
 		assertFalse(b5.equals(b4));
 		Money b6 = b0.sub(new Money(10.23));
 		assertFalse(b5.equals(b6));
-		assertEquals(new Money(-MAX_MONEY), b6);
+		assertEquals(new Money(-MAX_MONEY), b6); //fails (-max money issue)
 	}
 	
 	
