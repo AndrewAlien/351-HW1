@@ -257,7 +257,7 @@ public class TestMoney extends LockedTestCase {
 	
 	public void test53() {
 		assertEquals(new Money(-MAX_MONEY), new Money(MAX_MONEY).negate()); //fails (-max money issue)
-		assertEquals(new Money(MAX_MONEY), new Money(-MAX_MONEY).negate());
+		assertEquals(new Money(MAX_MONEY), new Money(-MAX_MONEY).negate()); // gos to tostring?? v *4
 	}
 	
 	

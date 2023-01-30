@@ -104,7 +104,7 @@ public class Money implements Comparable<Money> {
 	 * @return new amount
 	 */
 	public Money mul(double amt) {
-		return null; // TODO (OK to use doubles)
+		return new Money(this.cents*amt/100);
 	}
 	
 	/**
@@ -113,18 +113,33 @@ public class Money implements Comparable<Money> {
 	 * @return ration of the two
 	 */
 	public double div(Money other) {
-		return 0; // TODO
+		System.out.print(this.cents/other.cents);
+		Money r = new Money(this.cents/other.cents);
+		return (long)(r.cents);
 	}
 	
 	@Override // implementation
 	public String toString() {
-		return "($0.00)"; // TODO (don't use doubles)
+		String str = String.format("%d",Math.abs(this.cents));
+		if (str.length() >= 3)
+			str = new StringBuilder(str).insert(str.length()-2, ".").toString();
+		else if(str.length() == 2) {
+			str = new StringBuilder(str).insert(str.length()-2, ".").toString();
+			str = String.format("0%s", str);
+		}
+		else if(str.length() == 1) {
+			str = new StringBuilder(str).insert(0, ".0").toString();
+			str = String.format("0%s", str);
+		}
+		str = String.format("$%s", str);
+		if (this.isNegative())
+			str = String.format("(%s)", str);
+		return str;
 	}
 	
 	@Override // implementation
 	public boolean equals(Object obj) {
 		return (this.hashCode() == obj.hashCode());
-		// TODO
 	}
 	
 	@Override // implementation
