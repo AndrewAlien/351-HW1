@@ -26,10 +26,12 @@ public class Money implements Comparable<Money> {
 	 * @param amt number of dollars
 	 */
 	public Money(double amt) {
-		// TODO (not simple)
 		if (amt*100 > (double)Long.MAX_VALUE) throw new ArithmeticException();
-		if (amt*100 < (double)Long.MIN_VALUE) throw new ArithmeticException();
+		if (amt*100 < (double)-Long.MAX_VALUE) throw new ArithmeticException();
 		this.cents = Math.round(amt*100);
+		if (this.cents > (double)Long.MAX_VALUE) throw new ArithmeticException();
+		if (this.cents < -Long.MAX_VALUE) throw new ArithmeticException();
+		
 	}
 	
 	/**
@@ -64,7 +66,6 @@ public class Money implements Comparable<Money> {
 	 */
 	public Money negate() {
 		return new Money(-this.cents);
-		//return null; // TODO
 	}
 	
 	/**
@@ -74,12 +75,8 @@ public class Money implements Comparable<Money> {
 	 * @return sum amount, never null
 	 */
 	public Money add(Money other) {
-		//double result = this.cents + other.cents;
-		//return new Money(result);
-		
-		//long result = this.cents + other.cents;
-		long result = Math.addExact(this.cents, other.cents); //plzzzzzz be right
-		Money results = new Money(result); // TODO (Do not use doubles!).
+		long result = Math.addExact(this.cents, other.cents);
+		Money results = new Money(result);
 		System.out.print(results.cents+"\n"); //test 48 keeps changing to 1 to large for money(long)?
 		return results;
 		
@@ -112,10 +109,17 @@ public class Money implements Comparable<Money> {
 	 * @param other other amount, must not be null
 	 * @return ration of the two
 	 */
-	public double div(Money other) {
-		System.out.print(this.cents/other.cents);
+	public double div(Money other) { 
+		if (other.cents == 0)
+			if (this.cents == 0)
+				return Double.NaN;
+			else if (this.cents > 0)
+				return Double.POSITIVE_INFINITY;
+			else if (this.cents < 0)
+				return Double.NEGATIVE_INFINITY;
+		System.out.println((this.cents*100)/(other.cents*100)); //cant get decimals to work???
 		Money r = new Money(this.cents/other.cents);
-		return (long)(r.cents);
+		return (long)(r.cents); //super broken idk brother pain
 	}
 	
 	@Override // implementation
@@ -139,7 +143,9 @@ public class Money implements Comparable<Money> {
 	
 	@Override // implementation
 	public boolean equals(Object obj) {
-		return (this.hashCode() == obj.hashCode());
+		if (this != null && obj != null)
+			return (this.hashCode() == obj.hashCode());
+		return false;
 	}
 	
 	@Override // implementation
@@ -149,7 +155,13 @@ public class Money implements Comparable<Money> {
 	
 	@Override // required
 	public int compareTo(Money other) {
-		// TODO
-		return 0;
+		int x = 0;
+		if (this.cents < other.cents)
+			x = -1;
+		else if (this.cents == other.cents)
+			x = 0;
+		else if (this.cents > other.cents)
+			x = 1;
+		return x;
 	}
 }

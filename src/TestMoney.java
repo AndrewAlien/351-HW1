@@ -165,7 +165,7 @@ public class TestMoney extends LockedTestCase {
 	}
 
 	public void test37() {
-		assertFalse(new Money(3.14).equals(null)); // fails (null issue?)
+		assertFalse(new Money(3.14).equals(null));
 		assertFalse(new Money(3.14).equals(Money.ZERO));
 	}
 
