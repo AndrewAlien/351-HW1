@@ -119,7 +119,6 @@ public class Account {
 	 */
 	public void adjust(Money amount, boolean force) throws OverdraftException, ArithmeticException {
 		if (this.minimum.compareTo(this.current.add(amount)) == 1 && force == false) throw new OverdraftException(this,amount);
-		else
-			this.current = this.current.add(amount);
+		this.current = this.current.add(amount);
 		}
 }
