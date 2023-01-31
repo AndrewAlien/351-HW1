@@ -118,6 +118,8 @@ public class Account {
 	 * No change is made to the account.
 	 */
 	public void adjust(Money amount, boolean force) throws OverdraftException, ArithmeticException {
-		// TODO
-	}
+		if (this.minimum.compareTo(this.current.add(amount)) == 1 && force == false) throw new OverdraftException(this,amount);
+		else
+			this.current = this.current.add(amount);
+		}
 }
