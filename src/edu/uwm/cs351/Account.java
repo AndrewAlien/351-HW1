@@ -28,7 +28,12 @@ public class Account {
 	 * @param owner representation of owner, must not be null
 	 */
 	public Account(String owner) {
-		// Call a different constructor with this(...)
+		if (owner == null) throw new NullPointerException();
+		this.id = genID();
+		this.owner = owner;
+		this.minimum = new Money(0);
+		this.current = new Money(0);
+		// Call a different constructor with this(...)  does that even mean?????
 	}
 	
 	/**
@@ -39,6 +44,11 @@ public class Account {
 	 */
 	public Account(String owner, Money minimum, Money current) {
 		// TODO: call a different constructor ith this(...)
+		if (owner == null || minimum == null || current == null) throw new NullPointerException();
+		this.owner = owner;
+		this.id = genID();
+		this.minimum = minimum;
+		this.current = current;
 	}
 	
 	/**
@@ -49,7 +59,12 @@ public class Account {
 	 * @param initial initial balance of the account, must not be null
 	 */
 	public Account(String owner, String id, Money min, Money initial) {
-		// TODO: Initialize
+		if (owner == null || id == null || min == null || initial == null) throw new NullPointerException();
+		if (id.length() <4) throw new IllegalArgumentException();
+		this.owner = owner;
+		this.id = id;
+		this.minimum = min;
+		this.current = initial;
 	}
 	
 	/**
