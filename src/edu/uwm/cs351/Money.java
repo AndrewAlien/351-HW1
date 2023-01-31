@@ -28,10 +28,7 @@ public class Money implements Comparable<Money> {
 	public Money(double amt) {
 		if (amt*100 > (double)Long.MAX_VALUE) throw new ArithmeticException();
 		if (amt*100 < (double)-Long.MAX_VALUE) throw new ArithmeticException();
-		this.cents = Math.round(amt*100);
-		if (this.cents > (double)Long.MAX_VALUE) throw new ArithmeticException();
-		if (this.cents < -Long.MAX_VALUE) throw new ArithmeticException();
-		
+		this.cents = Math.round(amt*100);		
 	}
 	
 	/**
@@ -77,9 +74,8 @@ public class Money implements Comparable<Money> {
 	public Money add(Money other) {
 		long result = Math.addExact(this.cents, other.cents);
 		Money results = new Money(result);
-		System.out.print(results.cents+"\n"); //test 48 keeps changing to 1 to large for money(long)?
-		return results;
-		
+		System.out.print(results.cents+"\n"); //test 48 keeps changing to 1 too large for money()?
+		return results;		
 	}
 	
 	/**
@@ -90,9 +86,7 @@ public class Money implements Comparable<Money> {
 	 * @return difference amount, never null
 	 */
 	public Money sub(Money other) {
-		
 		return this.add(new Money(other.cents).negate());
-		//return null; // TODO, as with add, or use add and negate
 	}
 	
 	/**
@@ -117,9 +111,7 @@ public class Money implements Comparable<Money> {
 				return Double.POSITIVE_INFINITY;
 			else if (this.cents < 0)
 				return Double.NEGATIVE_INFINITY;
-		System.out.println((this.cents*100)/(other.cents*100)); //cant get decimals to work???
-		Money r = new Money(this.cents/other.cents);
-		return (long)(r.cents); //super broken idk brother pain
+		return (double)(this.cents*100)/(other.cents*100);
 	}
 	
 	@Override // implementation
